@@ -1,41 +1,43 @@
 function contar() {
 
-    var txtInicio = window.document.getElementById('inpInicio').value
-    var txtFim = window.document.getElementById('inpFim').value
-    var txtPasso = window.document.getElementById('inpPasso').value
-    var res = window.document.getElementById('res')
+    let txtInicio = document.getElementById('inpInicio').value
+    let txtFim = document.getElementById('inpFim').value
+    let txtPasso = document.getElementById('inpPasso').value
+    let res = document.getElementById('res')
 
-    var nInicio = Number(txtInicio)
-    var nFim = Number(txtFim)
-    var nPasso = Number(txtPasso)
+    let nInicio = Number(txtInicio)
+    let nFim = Number(txtFim)
+    let nPasso = Number(txtPasso)
 
-    var emojiPasso = '&#128073;'
-    var emojiFinal = '&#127937;'
+    let emojiPasso = '&#128073;'
+    let emojiFinal = '&#127937;'
 
     if (txtInicio.length <= 0 || txtFim.length <= 0 || txtPasso.length <= 0) {
-        alert('Impossível contar. Informe todos os valores!');
+        //window.alert('Impossível contar. Informe todos os valores!');
+        res.innerHTML = 'Impossível contar!'
     } 
     else {
 
-        if (nPasso == 0) {
-            alert('Passo inválido! Considerando PASSO 1')
+        if (nPasso <= 0) {
+            window.alert('Passo inválido! Considerando PASSO 1')
             nPasso = 1
         }
 
-        res.innerHTML = 'Contando:<br/>'
+        res.innerHTML = 'Contando: <br>'
 
-        for (var i = nInicio; i <= nFim; i++) {
-
-            if ((i + nPasso) > nFim) {
-                console.log('fim')
-                res.innerHTML += `${emojiFinal}`
-            }
-            else {
+        /* Contagem progressiva*/ 
+        if (nInicio < nFim) {
+            for (let i = nInicio; i <= nFim; i += nPasso) {
                 res.innerHTML += `${i}${emojiPasso}`
             }
-        
-            i += nPasso - 1
-
+        } 
+        /* Contagem regressiva */
+        else {
+            for (let i = nInicio; i >= nFim; i -= nPasso) {
+                res.innerHTML += `${i}${emojiPasso}`
+            }
         }
+
+        res.innerHTML += `${emojiFinal}`
     }
 }
